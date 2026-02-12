@@ -1,4 +1,5 @@
-⭐ Pls leave a star, it helps a lot <3
+⭐ Pls leave a star, it helps a lot <3  
+If you have any suggestions or encounter any problems, DM me on Discord: **dripbenzi**
 
 ## All Features Added
 - Fixed the issue where skin styles (like Superhero skins) weren't saving.
@@ -10,8 +11,8 @@
 - `/leaderboard`: New command for Top 10 Arena players with 1-hour auto-caching.
 - Tournament: Added `Reload Tournament`.
 - `/appeal`: New command for banned users. Sends their appeal to a logs channel.
-- `/check-user`: New admin command to lookup users by Name, Discord, or ID. Shows full profile and ban status.
-- `/create`: Now auto-generates email and a random 12-char password. Details are DMed to the user.
+- `/check-user`: New admin command to look up users by Name, Discord, or ID. Shows full profile and ban status.
+- `/create`: Now auto-generates an email and a random 12-char password. Details are DMed to the user.
 - `/ban`: Added durations (1h, 1d, etc.) and reasons. Banned players see the reason and a countdown timer in-game.
 - `/unban`: Now sends a DM notification to the user when they are unbanned.
 - `/change-username`: Added a 1-week cooldown with a countdown timer.
