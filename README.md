@@ -1,6 +1,11 @@
 ⭐ Pls leave a star, it helps a lot <3  
 If you have any suggestions or encounter any problems, DM me on Discord: **dripbenzi**
 
+## Next Update
+- Reload Tournament
+- Leaderboard on the Website
+- Discord command where people can buy items from the Item Shop
+
 ## All Features Added
 - Fixed the issue where skin styles (like Superhero skins) weren't saving.
 - Bot now sends an image of the item shop every 24H.
