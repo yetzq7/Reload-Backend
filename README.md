@@ -25,7 +25,7 @@ If you have any suggestions or encounter any problems, DM me on Discord: **dripb
 - `/unban`: Now sends a DM notification to the user when they are unbanned.
 - `/change-username`: Added a 1-week cooldown with a countdown timer.
 - `allathena` now gives skins above C4S2.
-- Added Arena — credits to Ducki67.
+- Added Arena — credits to [Ducki67](https://github.com/Ducki67)
 
 ### Removed
 - `/lookup`
