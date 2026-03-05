@@ -5,6 +5,7 @@ const Users = require('../../../model/user.js');
 const Profiles = require('../../../model/profiles.js');
 const SACCodes = require('../../../model/saccodes.js');
 const Friends = require('../../../model/friends.js');
+const Arena = require('../../../model/arena.js');
 const log = require("../../../structs/log.js");
 const config = require('../../../Config/config.json');
 
@@ -62,6 +63,12 @@ module.exports = {
             somethingDeleted = true;
         }).catch(error => {
             log.error('Error deleting from SACCodes:', error);
+        });
+
+        await Arena.deleteOne({ accountId: accountId }).then(() => {
+            somethingDeleted = true;
+        }).catch(error => {
+            log.error('Error deleting from Arena:', error);
         });
 
         const clientSettingsPath = path.join(__dirname, '../../../ClientSettings', accountId);

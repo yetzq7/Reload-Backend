@@ -190,6 +190,7 @@ wss.on('connection', async (ws) => {
                         .attribute("type", "result").toString());
 
                         await getPresenceFromFriends(ws, accountId, jid);
+                        await updatePresenceForFriends(ws, "{}", false, false);
                     break;
 
                     default:
@@ -271,111 +272,109 @@ wss.on('connection', async (ws) => {
             case "presence":
                 if (!clientExists) return Error(ws);
 
-                switch (msg.root.attributes.type) {
-                    case "unavailable":
-                        if (!msg.root.attributes.to) return;
-
-                        if (msg.root.attributes.to.endsWith(`@muc.${global.xmppDomain}`) || msg.root.attributes.to.split("/")[0].endsWith(`@muc.${global.xmppDomain}`)) {
-                            if (!msg.root.attributes.to.toLowerCase().startsWith("party-")) return;
-                            
-                            let roomName = msg.root.attributes.to.split("@")[0];
-                            
-                            if (!global.MUCs[roomName]) return;
-                            
-                            let memberIndex = global.MUCs[roomName].members.findIndex(i => i.accountId == accountId);
-                            if (memberIndex != -1) {
-                                global.MUCs[roomName].members.splice(memberIndex, 1);
-                                joinedMUCs.splice(joinedMUCs.indexOf(roomName), 1);
-                            }
-
-                            ws.send(XMLBuilder.create("presence")
-                            .attribute("to", jid)
-                            .attribute("from", getMUCmember(roomName, displayName, accountId, resource))
-                            .attribute("xmlns", "jabber:client")
-                            .attribute("type", "unavailable")
-                            .element("x").attribute("xmlns", "http://jabber.org/protocol/muc#user")
-                            .element("item")
-                            .attribute("nick", getMUCmember(roomName, displayName, accountId, resource).replace(`${roomName}@muc.${global.xmppDomain}/`, ""))
-                            .attribute("jid", jid)
-                            .attribute("role", "none").up()
-                            .element("status").attribute("code", "110").up()
-                            .element("status").attribute("code", "100").up()
-                            .element("status").attribute("code", "170").up().up().toString());
-                            return;
+                if (msg.root.attributes.type === "unavailable") {
+                    if (msg.root.attributes.to && (msg.root.attributes.to.endsWith(`@muc.${global.xmppDomain}`) || msg.root.attributes.to.split("/")[0].endsWith(`@muc.${global.xmppDomain}`))) {
+                        if (!msg.root.attributes.to.toLowerCase().startsWith("party-")) return;
+                        
+                        let roomName = msg.root.attributes.to.split("@")[0];
+                        
+                        if (!global.MUCs[roomName]) return;
+                        
+                        let memberIndex = global.MUCs[roomName].members.findIndex(i => i.accountId == accountId);
+                        if (memberIndex != -1) {
+                            global.MUCs[roomName].members.splice(memberIndex, 1);
+                            joinedMUCs.splice(joinedMUCs.indexOf(roomName), 1);
                         }
-                    break;
 
-                    default:
-                        if (msg.root.children.find(i => i.name == "muc:x") || msg.root.children.find(i => i.name == "x")) {
-                            if (!msg.root.attributes.to) return;
-                            
-                            let roomName = msg.root.attributes.to.split("@")[0];
-    
-                            if (!global.MUCs[roomName]) global.MUCs[roomName] = { members: [] };
-    
-                            if (global.MUCs[roomName].members.find(i => i.accountId == accountId)) return;
-    
-                            global.MUCs[roomName].members.push({ accountId: accountId });
-    
-                            joinedMUCs.push(roomName);
-    
-                            ws.send(XMLBuilder.create("presence")
-                            .attribute("to", jid)
-                            .attribute("from", getMUCmember(roomName, displayName, accountId, resource))
-                            .attribute("xmlns", "jabber:client")
-                            .element("x").attribute("xmlns", "http://jabber.org/protocol/muc#user")
-                            .element("item")
-                            .attribute("nick", getMUCmember(roomName, displayName, accountId, resource).replace(`${roomName}@muc.${global.xmppDomain}/`, ""))
-                            .attribute("jid", jid)
-                            .attribute("role", "participant")
-                            .attribute("affiliation", "none").up()
-                            .element("status").attribute("code", "110").up()
-                            .element("status").attribute("code", "100").up()
-                            .element("status").attribute("code", "170").up()
-                            .element("status").attribute("code", "201").up().up().toString());
-    
-                            global.MUCs[roomName].members.forEach(member => {
-                                let ClientData = global.Clients.find(i => i.accountId == member.accountId);
-                                if (!ClientData) return;
-    
-                                ws.send(XMLBuilder.create("presence")
-                                .attribute("from", getMUCmember(roomName, ClientData.displayName, ClientData.accountId, ClientData.resource))
-                                .attribute("to", jid)
-                                .attribute("xmlns", "jabber:client")
-                                .element("x")
-                                .attribute("xmlns", "http://jabber.org/protocol/muc#user")
-                                .element("item")
-                                .attribute("nick", getMUCmember(roomName, ClientData.displayName, ClientData.accountId, ClientData.resource).replace(`${roomName}@muc.${global.xmppDomain}/`, ""))
-                                .attribute("jid", ClientData.jid)
-                                .attribute("role", "participant")
-                                .attribute("affiliation", "none").up().up().toString());
-    
-                                if (accountId == ClientData.accountId) return;
-    
-                                ClientData.client.send(XMLBuilder.create("presence")
-                                .attribute("from", getMUCmember(roomName, displayName, accountId, resource))
-                                .attribute("to", ClientData.jid)
-                                .attribute("xmlns", "jabber:client")
-                                .element("x")
-                                .attribute("xmlns", "http://jabber.org/protocol/muc#user")
-                                .element("item")
-                                .attribute("nick", getMUCmember(roomName, displayName, accountId, resource).replace(`${roomName}@muc.${global.xmppDomain}/`, ""))
-                                .attribute("jid", jid)
-                                .attribute("role", "participant")
-                                .attribute("affiliation", "none").up().up().toString());
-                            });
-                        return;
+                        ws.send(XMLBuilder.create("presence")
+                        .attribute("to", jid)
+                        .attribute("from", getMUCmember(roomName, displayName, accountId, resource))
+                        .attribute("xmlns", "jabber:client")
+                        .attribute("type", "unavailable")
+                        .element("x").attribute("xmlns", "http://jabber.org/protocol/muc#user")
+                        .element("item")
+                        .attribute("nick", getMUCmember(roomName, displayName, accountId, resource).replace(`${roomName}@muc.${global.xmppDomain}/`, ""))
+                        .attribute("jid", jid)
+                        .attribute("role", "none").up()
+                        .element("status").attribute("code", "110").up()
+                        .element("status").attribute("code", "100").up()
+                        .element("status").attribute("code", "170").up().up().toString());
+                    } else {
+                        await updatePresenceForFriends(ws, "{}", false, true);
                     }
+                    return;
+                }
+
+                if (msg.root.children.find(i => i.name == "muc:x") || msg.root.children.find(i => i.name == "x")) {
+                    if (!msg.root.attributes.to) return;
+                    
+                    let roomName = msg.root.attributes.to.split("@")[0];
+
+                    if (!global.MUCs[roomName]) global.MUCs[roomName] = { members: [] };
+
+                    if (global.MUCs[roomName].members.find(i => i.accountId == accountId)) return;
+
+                    global.MUCs[roomName].members.push({ accountId: accountId });
+
+                    joinedMUCs.push(roomName);
+
+                    ws.send(XMLBuilder.create("presence")
+                    .attribute("to", jid)
+                    .attribute("from", getMUCmember(roomName, displayName, accountId, resource))
+                    .attribute("xmlns", "jabber:client")
+                    .element("x").attribute("xmlns", "http://jabber.org/protocol/muc#user")
+                    .element("item")
+                    .attribute("nick", getMUCmember(roomName, displayName, accountId, resource).replace(`${roomName}@muc.${global.xmppDomain}/`, ""))
+                    .attribute("jid", jid)
+                    .attribute("role", "participant")
+                    .attribute("affiliation", "none").up()
+                    .element("status").attribute("code", "110").up()
+                    .element("status").attribute("code", "100").up()
+                    .element("status").attribute("code", "170").up()
+                    .element("status").attribute("code", "201").up().up().toString());
+
+                    global.MUCs[roomName].members.forEach(member => {
+                        let ClientData = global.Clients.find(i => i.accountId == member.accountId);
+                        if (!ClientData) return;
+
+                        ws.send(XMLBuilder.create("presence")
+                        .attribute("from", getMUCmember(roomName, ClientData.displayName, ClientData.accountId, ClientData.resource))
+                        .attribute("to", jid)
+                        .attribute("xmlns", "jabber:client")
+                        .element("x")
+                        .attribute("xmlns", "http://jabber.org/protocol/muc#user")
+                        .element("item")
+                        .attribute("nick", getMUCmember(roomName, ClientData.displayName, ClientData.accountId, ClientData.resource).replace(`${roomName}@muc.${global.xmppDomain}/`, ""))
+                        .attribute("jid", ClientData.jid)
+                        .attribute("role", "participant")
+                        .attribute("affiliation", "none").up().up().toString());
+
+                        if (accountId == ClientData.accountId) return;
+
+                        ClientData.client.send(XMLBuilder.create("presence")
+                        .attribute("from", getMUCmember(roomName, displayName, accountId, resource))
+                        .attribute("to", ClientData.jid)
+                        .attribute("xmlns", "jabber:client")
+                        .element("x")
+                        .attribute("xmlns", "http://jabber.org/protocol/muc#user")
+                        .element("item")
+                        .attribute("nick", getMUCmember(roomName, displayName, accountId, resource).replace(`${roomName}@muc.${global.xmppDomain}/`, ""))
+                        .attribute("jid", jid)
+                        .attribute("role", "participant")
+                        .attribute("affiliation", "none").up().up().toString());
+                    });
+                    return;
                 }
 
                 let findStatus = msg.root.children.find(i => i.name == "status");
-
-                if (!findStatus || !findStatus.content) return;
-                if (!isJSON(findStatus.content)) return;
-                if (Array.isArray(JSON.parse(findStatus.content))) return;
-
-                let status = findStatus.content;
+                let status = findStatus ? findStatus.content : "{}";
                 let away = msg.root.children.find(i => i.name == "show") ? true : false;
+
+                if (status && isJSON(status)) {
+                    if (Array.isArray(JSON.parse(status))) status = "{}";
+                } else {
+                    status = "{}";
+                }
 
                 await updatePresenceForFriends(ws, status, away, false);
                 functions.getPresenceFromUser(accountId, accountId, false);

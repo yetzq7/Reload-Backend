@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const User = require("../../../model/user.js")
 const Profile = require("../../../model/profiles.js");
 const Friends = require("../../../model/friends.js");
+const Arena = require("../../../model/arena.js");
 const functions = require("../../../structs/functions.js");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
@@ -97,6 +98,7 @@ module.exports = {
 
                 await Profile.create({ created: i.created, accountId: i.accountId, profiles: profiles });
                 await Friends.create({ created: i.created, accountId: i.accountId });
+                await Arena.create({ accountId: i.accountId, hype: 0, division: 0 });
             });
 
             let embed = new MessageEmbed()

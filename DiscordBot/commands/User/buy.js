@@ -7,10 +7,9 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-// Cache for autocomplete
 let shopCache = {
     timestamp: 0,
-    items: [] // [{ name: "Renegade Raider (Daily 1)", value: "daily1" }, ...]
+    items: []
 };
 
 module.exports = {
@@ -21,7 +20,7 @@ module.exports = {
             {
                 name: "slot",
                 description: "The shop slot to buy from.",
-                type: 3, // STRING
+                type: 3,
                 required: true,
                 autocomplete: true
             }
@@ -32,33 +31,17 @@ module.exports = {
         const catalogConfigPath = path.join(__dirname, '..', '..', '..', 'Config', 'catalog_config.json');
 
         try {
-            // Check if we need to refresh cache
             let fileStats = fs.statSync(catalogConfigPath);
             if (fileStats.mtimeMs > shopCache.timestamp || shopCache.items.length === 0) {
-                // Refresh cache
                 const catalogConfig = JSON.parse(fs.readFileSync(catalogConfigPath, 'utf8'));
                 const newItems = [];
 
-                // We need to fetch names for each slot
-                // We'll proceed in parallel requests to speed it up
                 const promises = [];
 
                 for (const [key, entry] of Object.entries(catalogConfig)) {
                     if (key === "//" || !entry.itemGrants || entry.itemGrants.length === 0) continue;
 
-                    // key is "daily1", "featured1", etc.
-                    // entry.itemGrants is ["AthenaCharacter:CID_..."]
-
-                    // We take the first item in the grant for the name (usually packs have one main item or we show the first)
                     const grant = entry.itemGrants[0];
-                    // Clean ID: "AthenaCharacter:CID_..." -> "CID_..."
-                    // Actually Fortnite-API often takes the full id or we can try searching by id
-                    // But usually for search endpoint 'id' parameter works best with just the ID part maybe?
-                    // Let's try passing the full templateId first, if it fails, split.
-                    // The standard templateId usually works if we look for backendValue? 
-                    // Let's just search by `id` parameter.
-
-                    // Clean ID: "AthenaCharacter:CID_..." -> "CID_..."
                     const cleanId = grant.split(':')[1] || grant;
                     const displayKey = key.charAt(0).toUpperCase() + key.slice(1).replace(/(\d+)/, " $1");
 
@@ -74,29 +57,24 @@ module.exports = {
                             }
                             return { name: `Unknown Item (${displayKey})`, value: key };
                         }).catch(err => {
-                            // Request failed
                             return { name: `${grant} (${displayKey})`, value: key };
                         })
                     );
                 }
 
-                // Wait for all fetches
                 const results = await Promise.all(promises);
                 shopCache.items = results;
                 shopCache.timestamp = Date.now();
             }
 
-            // Filter
             const filtered = shopCache.items.filter(choice => 
                 choice.name.toLowerCase().includes(focusedValue.toLowerCase())
             );
 
-            // Respond (max 25 choices allowed by Discord)
             await interaction.respond(filtered.slice(0, 25));
 
         } catch (error) {
             log.error(`Autocomplete error: ${error}`);
-            // Return empty if error
             await interaction.respond([]);
         }
     },
@@ -135,7 +113,6 @@ module.exports = {
             const profile0 = userProfile.profiles["profile0"];
             const athena = userProfile.profiles["athena"];
 
-            // Check if user already owns any of the items
             for (const grant of itemGrants) {
                 const alreadyOwned = Object.values(athena.items).some(item => 
                     item.templateId.toLowerCase() === grant.toLowerCase()
@@ -146,7 +123,6 @@ module.exports = {
                 }
             }
 
-            // Check for V-Bucks
             let vbucksItemKey = null;
             let currentVBucks = 0;
 
@@ -165,7 +141,6 @@ module.exports = {
                 });
             }
 
-            // Deduct V-Bucks
             const newQuantity = currentVBucks - price;
             
             const newItems = {};
@@ -184,7 +159,7 @@ module.exports = {
                     quantity: 1
                 };
                 newItems[newItemId] = newItem;
-                createdItemNames.push(grant); // Use grant ID for now, maybe fetch name if we want pretty output but ID is fine for log
+                createdItemNames.push(grant);
             }
 
             const updateSet = {};

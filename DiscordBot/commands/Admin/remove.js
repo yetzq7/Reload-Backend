@@ -60,7 +60,6 @@ module.exports = {
             const athena = profile.profiles.athena;
 
             if (type === "all") {
-                // Preserve Loadouts
                 let loadouts = {};
                 const currentItems = athena.items || {};
 

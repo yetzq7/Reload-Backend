@@ -215,7 +215,6 @@ module.exports = {
             if (pack === "full") {
                 itemsToGive = allItems.items;
 
-                // Preservation of Loadouts
                 let loadouts = {};
                 const currentItems = profile.profiles.athena.items || {};
 

@@ -22,7 +22,6 @@ app.get("/*/api/statsv2/leaderboards/:leaderboardName", async (req, res) => {
             }
         }
 
-        // Check for Hype or ReloadPoints Leaderboard
         if (req.params.leaderboardName.toLowerCase().includes("hype") || req.params.leaderboardName.toLowerCase().includes("reloadpoints")) {
             const arenaStats = await require("../model/arena.js").find({}).sort({ hype: -1 }).limit(maxSize);
             
@@ -37,8 +36,6 @@ app.get("/*/api/statsv2/leaderboards/:leaderboardName", async (req, res) => {
                  });
             }
         } else {
-            // Standard Stats processing
-            // Attempt to parse playlist and stat type more flexibly
             let playlist = "";
             let typeStat = "";
             
@@ -49,7 +46,6 @@ app.get("/*/api/statsv2/leaderboards/:leaderboardName", async (req, res) => {
                      if (parts.length > 1) typeStat = parts[1];
                  }
             } else {
-                 // Fallback to old behavior if possible or default
                  playlist = req.params.leaderboardName.split("playlist_default")[1];
                  if (req.params.leaderboardName.includes("br_")) {
                     typeStat = req.params.leaderboardName.split("_keyboardmouse")[0].split("br_")[1];
@@ -57,7 +53,6 @@ app.get("/*/api/statsv2/leaderboards/:leaderboardName", async (req, res) => {
             }
             
             if (!playlist || !typeStat) {
-                // If parsing failed or not a standard format, return empty or try default fallback
                 log.debug(`Failed to parse leaderboard: ${req.params.leaderboardName}`);
                 return res.json({ maxSize: maxSize, entries: [] });
             }
@@ -69,13 +64,10 @@ app.get("/*/api/statsv2/leaderboards/:leaderboardName", async (req, res) => {
                 const findUser = await User.findOne({ accountId: stat.accountId });
                 if (!findUser) continue;
                 
-                // Flexible access or fallback
-                // If playlist specific stats don't exist, maybe fallback to 'solo' or just skip
                 let statValue = 0;
                 if (stat[playlist] && stat[playlist][typeStat] !== undefined) {
                     statValue = stat[playlist][typeStat];
                 } else if (stat["solo"] && stat["solo"][typeStat] !== undefined) {
-                    // Fallback to solo if tournament specific key doesn't exist
                     statValue = stat["solo"][typeStat]; 
                 }
 
@@ -87,7 +79,6 @@ app.get("/*/api/statsv2/leaderboards/:leaderboardName", async (req, res) => {
             }
             
             entries.sort((a, b) => b.value - a.value);
-            // Cap to max size
             if (entries.length > maxSize) {
                 entries = entries.slice(0, maxSize);
             }
