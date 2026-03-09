@@ -4,9 +4,9 @@ If you have any suggestions or encounter any problems, DM me on Discord: **dripb
 > [!WARNING]
 > **READ THIS BEFORE ASKING QUESTIONS**
 >
-> Stop asking me if there are **V-Bucks for kills/wins** or if there are **quests**.
+> Stop asking me if there are **V-Bucks on kills/wins** or if there are **quests**.
 >
-> There **ARE** V-Bucks for kills/wins and **quests**.  
+> There **ARE** V-Bucks on kills/wins and **quests**.  
 > Just check the **config**.
 
 ## Latest Changes
