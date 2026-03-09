@@ -1,6 +1,14 @@
 ⭐ Pls leave a star, it helps a lot <3  
 If you have any suggestions or encounter any problems, DM me on Discord: **dripbenzi**
 
+> [!WARNING]
+> **READ THIS BEFORE ASKING QUESTIONS**
+>
+> Stop asking me if there are **V-Bucks for kills/wins** or if there are **quests**.
+>
+> There **ARE** V-Bucks for kills/wins and **quests**.  
+> Just check the **config**.
+
 ## Latest Changes
 - Fixed Arena.
 - Added Party System (you can accept friend requests, join lobbies, etc.).
