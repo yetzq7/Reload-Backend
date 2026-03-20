@@ -9,8 +9,8 @@
       "_type": "CommonUI Simple Message",
       "message": {
         "_type": "CommonUI Simple Message Base",
-        "title": "Reload Backend",
-        "body": "Created by Burlone, This is a modded backend, all main backend credits to lawin"
+        "title": "Ruby",
+        "body": "Welcome to Project Ruby"
       }
     },
     "_activeDate": "2017-07-19T13:14:04.490Z",
@@ -213,8 +213,8 @@
           "hidden": false,
           "_type": "CommonUI Simple Message Base",
           "adspace": "DISCORD!",
-          "title": "Reload Backend",
-          "body": "Made by burlone413",
+          "title": "Ruby",
+          "body": "https://discord.gg/ogfncenter",
           "spotlight": false
         },
         {
@@ -222,8 +222,8 @@
           "hidden": false,
           "_type": "CommonUI Simple Message Base",
           "adspace": "ENJOY!",
-          "title": "Reload Backend",
-          "body": "Created by Burlone, This is a modded backend, all main backend credits to lawin",
+          "title": "Ruby",
+          "body": "Welcome to Project Ruby",
           "spotlight": false
         }
       ]
@@ -1192,28 +1192,52 @@
       "tournaments": [
         {
           "title_color": "FFFFFF",
-          "loading_screen_image": "https://i.imgur.com/ImIwpRm.png",
+          "loading_screen_image": "https://i.imgur.com/ife7DhO.jpeg",
           "background_text_color": "1B1B1B",
           "background_right_color": "DD091A",
-          "poster_back_image": "https://i.imgur.com/ImIwpRm.png",
+          "poster_back_image": "https://i.imgur.com/ife7DhO.jpeg",
           "_type": "Tournament Display Info",
-          "pin_earned_text": "Burlone is the winner!",
-          "tournament_display_id": "s11_switchcup",
+          "pin_earned_text": "Burlone (fake winner) and Waslyl (real winner) are the winner!  BRUH NO1 CAN BE THE WINNER STFU",
+          "tournament_display_id": "ArenaSolo",
           "highlight_color": "FFFFFF",
-          "schedule_info": "November 2nd & 3rd: 2pm - 5pm JST",
+          "schedule_info": "February 1st, 2nd & 3rd: 2pm - 5pm JST",
           "primary_color": "FFFFFF",
           "flavor_description": "cool",
-          "poster_front_image": "https://i.imgur.com/ImIwpRm.png",
+          "poster_front_image": "https://i.imgur.com/ife7DhO.jpeg",
           "short_format_title": "Event Sessions",
-          "title_line_2": "boomer",
-          "title_line_1": "Solo",
+          "title_line_1": "Lategame Arena",
           "shadow_color": "1B1B1B",
-          "details_description": "ok",
+          "details_description": "description  here  ig?",
           "background_left_color": "F81B2D",
-          "long_format_title": "nice",
+          "long_format_title": "title text here",
           "poster_fade_color": "DD091A",
           "secondary_color": "1B1B1B",
-          "playlist_tile_image": "https://i.imgur.com/ImIwpRm.png",
+          "playlist_tile_image": "https://i.imgur.com/ife7DhO.jpeg",
+          "base_color": "FFFFFF"
+        },
+        {
+          "title_color": "FFFFFF",
+          "loading_screen_image": "https://i.ibb.co/S4cmwXMZ/poloprodigytestcup.png",
+          "background_text_color": "ff1b1b",
+          "background_right_color": "ff1b1b",
+          "poster_back_image": "https://i.ibb.co/S4cmwXMZ/poloprodigytestcup.png",
+          "_type": "Tournament Display Info",
+          "pin_earned_text": "Benzi is the winner!",
+          "tournament_display_id": "ReloadTournament",
+          "highlight_color": "ff1b1b",
+          "schedule_info": "March 13",
+          "primary_color": "000000",
+          "flavor_description": "",
+          "poster_front_image": "https://i.ibb.co/S4cmwXMZ/poloprodigytestcup.png",
+          "short_format_title": "Event Sessions",
+          "title_line_1": "Polo Test Cup",
+          "shadow_color": "b10000",
+          "details_description": "",
+          "background_left_color": "fe3a12",
+          "long_format_title": "",
+          "poster_fade_color": "b10000",
+          "secondary_color": "fe3a12",
+          "playlist_tile_image": "https://i.ibb.co/Ldm9bTYk/polotestbanner.png",
           "base_color": "FFFFFF"
         }
       ],
@@ -1232,8 +1256,8 @@
         {
           "hidden": false,
           "_type": "CommonUI Simple Message Base",
-          "title": "Reload Backend",
-          "body": "Created by Burlone, This is a modded backend, all main backend credits to lawin",
+          "title": "Ruby",
+          "body": "Welcome to Project Ruby",
           "spotlight": true
         }
       ]
@@ -1257,8 +1281,8 @@
           "gamemodes": [],
           "hidden": false,
           "_type": "CommonUI Emergency Notice Base",
-          "title": "Reload Backend",
-          "body": "Created by Burlone, This is a modded backend, all main backend credits to lawin"
+          "title": "Ruby",
+          "body": "Welcome to Project Ruby"
         }
       ]
     },
@@ -6260,16 +6284,16 @@
           "tileImage": "https://i.imgur.com/KaJkHgq.png",
           "videoMute": false,
           "hidden": false,
-          "tabTitleOverride": "Reload Backend",
+          "tabTitleOverride": "Ruby",
           "_type": "CommonUI Simple Message MOTD",
-          "title": "Welcome to Reload!",
-          "body": "Created by Burlone, This is a modded backend, all main backend credits to lawin",
+          "title": "Welcome to Ruby!",
+          "body": "Welcome to Project Ruby",
           "offerAction": "ShowOfferDetails",
           "videoLoop": false,
           "videoStreamingEnabled": false,
           "sortingPriority": 1,
-          "websiteButtonText": "Reload Backend - Github",
-          "websiteURL": "https://github.com/Project-Reload/Reload-Backend",
+          "websiteButtonText": "OGFN Discord Server",
+          "websiteURL": "https://discord.gg/ogfncenter",
           "id": "61fb3dd8-f23d-45cc-9058-058ab223ba5c",
           "videoAutoplay": false,
           "videoFullscreen": false,
@@ -6294,12 +6318,12 @@
       ],
       "messages": [
         {
-          "image": "https://i.imgur.com/2RImwlb.png",
+          "image": "https://i.ibb.co/pBJLTJvm/ruby-updated.png",
           "hidden": false,
           "_type": "CommonUI Simple Message Base",
-          "adspace": "Reload Backend",
-          "title": "Reload Backend",
-          "body": "Created by Burlone, This is a modded backend, all main backend credits to lawin",
+          "adspace": "Ruby",
+          "title": "Ruby",
+          "body": "Welcome to Project Ruby",
           "spotlight": false
         }
       ]
@@ -6373,9 +6397,18 @@
           "image": "https://i.imgur.com/ImIwpRm.png",
           "hidden": false,
           "_type": "CommonUI Simple Message Base",
+          "adspace": "DISCORD!",
+          "title": "Star the repo, it helps a lot.",
+          "body": "https://discord.gg/ogfncenter",
+          "spotlight": false
+        },
+        {
+          "image": "https://i.imgur.com/ImIwpRm.png",
+          "hidden": false,
+          "_type": "CommonUI Simple Message Base",
           "adspace": "ENJOY!",
-          "title": "Reload Backend",
-          "body": "Created by Burlone, This is a modded backend, all main backend credits to lawin!",
+          "title": "Ruby",
+          "body": "Welcome to Project Ruby",
           "spotlight": false
         }
       ]
