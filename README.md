@@ -2,16 +2,16 @@
 If you have any suggestions or encounter any problems, DM me on Discord: **dripbenzi**
 
 > [!WARNING]
-> **READ THIS BEFORE ASKING QUESTIONS**
->
-> Stop asking me if there are **V-Bucks on kills/wins** or if there are **quests**.
->
-> There **ARE** V-Bucks on kills/wins and **quests**.  
-> Just check the **config**.
+> 1. This backend is **public**, which means it is **not for selling**.  
+> 2. If you are using this backend, **please give credits**.
+
+---
 
 ## Latest Changes
 - Fixed Arena.
 - Added Party System (you can accept friend requests, join lobbies, etc.).
+
+---
 
 ## Features
 - Fixed `/add` and `/remove` commands breaking lockers.
@@ -35,6 +35,8 @@ If you have any suggestions or encounter any problems, DM me on Discord: **dripb
 - `/change-username`: Added a 1-week cooldown with a countdown timer.
 - `allathena` now gives skins above C4S2.
 - Added Arena — credits to [Ducki67](https://github.com/Ducki67).
+
+---
 
 ## Removed
 - `/lookup`
