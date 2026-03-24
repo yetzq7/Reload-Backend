@@ -1,5 +1,5 @@
 ⭐ Pls leave a star, it helps a lot <3  
-If you have any suggestions or encounter any problems, DM me on Discord: **dripbenzi**
+
 
 > [!WARNING]
 > 1. This backend is **public**, which means it is **not for selling**.  
