@@ -1,5 +1,6 @@
 ⭐ Pls leave a star, it helps a lot <3  
 
+I quit OGFN so dont ask me for anything
 
 > [!WARNING]
 > 1. This backend is **public**, which means it is **not for selling**.  
